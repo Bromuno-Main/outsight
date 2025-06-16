@@ -29,13 +29,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      {/* Favicon links seem fine */}
-      <link rel="icon" href="/favicon.ico" />
-      <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-      <link rel="manifest" href="/site.webmanifest" />
+
       <body
-        // Apply BOTH font variables to the body class
-        // Set the default font family using Tailwind's utility class (font-manrope)
         className={`${rajdhani.variable} ${manrope.variable} font-manrope pb-8 `}
       >
          <Header/>

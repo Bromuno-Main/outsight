@@ -8,9 +8,10 @@ import { FaUsers, FaBookOpen, FaTag, FaFileAlt } from 'react-icons/fa'; // Added
 interface GuildCardProps {
     guild: Guild;
     allPosts: Post[]; // Need all posts to find the ones belonging to the guild
+    index:number;
 }
 
-const GuildCard: FC<GuildCardProps> = ({ guild, allPosts }) => {
+const GuildCard: FC<GuildCardProps> = ({ guild, allPosts,index }) => {
     // 1. Find posts written by authors in this guild
     const guildPosts = allPosts.filter(post =>
         guild.authorNames.includes(post.author)
@@ -26,6 +27,7 @@ const GuildCard: FC<GuildCardProps> = ({ guild, allPosts }) => {
 
     return (
         <Link
+            key={index}
             href={`/guild/${guild.id}`}
             className="flex flex-col bg-white rounded-lg border border-gray-200 shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden group focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#105745]"
         >
@@ -62,8 +64,8 @@ const GuildCard: FC<GuildCardProps> = ({ guild, allPosts }) => {
                 <h6 className="text-sm font-semibold text-gray-700 mb-2">Recent Posts:</h6>
                 {postPreviews.length > 0 ? (
                     <ul className="space-y-1.5">
-                        {postPreviews.map(post => (
-                            <li key={post.index} className="flex items-start gap-2 text-sm text-gray-600">
+                        {postPreviews.map((post,index) => (
+                            <li key={index} className="flex items-start gap-2 text-sm text-gray-600">
                                 <FaFileAlt className="w-3 h-3 mt-1 text-gray-400 flex-shrink-0" />
                                 <span className="line-clamp-1">{post.title}</span>
                             </li>

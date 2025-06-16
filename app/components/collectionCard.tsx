@@ -8,9 +8,10 @@ import { FaRegFileAlt, FaUsers } from 'react-icons/fa'; // Example icons
 interface CollectionCardProps {
     collection: Collection; // The specific collection data
     allPosts: Post[];      // The full array of all posts to look up from
+    index: number;
 }
 
-const CollectionCard: FC<CollectionCardProps> = ({ collection, allPosts }) => {
+const CollectionCard: FC<CollectionCardProps> = ({ collection, allPosts,index }) => {
     // --- Data Processing (remains the same) ---
 
     // 1. Find all posts belonging to this collection using the indices
@@ -42,6 +43,7 @@ const CollectionCard: FC<CollectionCardProps> = ({ collection, allPosts }) => {
     return (
         // Wrap the entire card content with the Link component
         <Link
+            key={index}
             href={`/collection/${collection.id}`} // Dynamic link to the collection page
             // Apply the original article's classes + focus styles
             className="flex flex-col bg-[#F8F1E6] rounded-3xl p-6 justify-center overflow-hidden hover:bg-white cursor-pointer transition-shadow duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#105745]"

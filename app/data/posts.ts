@@ -263,7 +263,7 @@ export const guilds: Guild[] = [
     theme: "Creative Writing & Storytelling",
     description: "A collective of authors dedicated to crafting compelling narratives, exploring fictional worlds, and sharing the art of storytelling.",
     authorNames: ["Alex Thompson", "Samantha Green"], // Add authors who exist in your posts data
-    profilePicture: "/guild-fiction.png" // Example path in /public
+    profilePicture: "/tech-founder.png" // Example path in /public
   },
   {
     id: "tech-titans",
@@ -271,7 +271,7 @@ export const guilds: Guild[] = [
     theme: "Technology & Innovation",
     description: "Experts and enthusiasts discussing the latest in software development, AI, hardware, and the future of technology.",
     authorNames: ["Jane Doe", "Ben Carter"], // Add authors who exist in your posts data
-    profilePicture: "/guild-tech.png" // Example path in /public
+    profilePicture: "/tech-founder.png" // Example path in /public
   },
   {
     id: "culture-corner",

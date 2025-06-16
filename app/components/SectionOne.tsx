@@ -3,7 +3,6 @@
 
 import React from 'react';
 import Slider from 'react-slick';
-import Link from 'next/link'; // Import Link
 import { PostLarge, PostSmall } from './Post/post';
 import { posts } from '../data/posts';
 import { IoArrowForward, IoArrowBack } from "react-icons/io5";
@@ -26,7 +25,7 @@ const uniqueTags = Array.from(new Set(allTags)); // Get unique tags
 
 
 
-const PrevArrow: React.FC<ArrowProps> = ({ className, style, onClick }) => {
+const PrevArrow: React.FC<ArrowProps> = ({ onClick }) => {
     return (
         <button
             className={` -bottom-4 absolute right-16 z-10 hidden cursor-pointer p-2`}
@@ -38,7 +37,7 @@ const PrevArrow: React.FC<ArrowProps> = ({ className, style, onClick }) => {
     );
 };
 
-const NextArrow: React.FC<ArrowProps> = ({ className, style, onClick }) => {
+const NextArrow: React.FC<ArrowProps> = ({ onClick }) => {
     return (
         <button
             className={` right-8 -bottom-4 absolute cursor-pointer hidden z-10 p-2`}
@@ -69,7 +68,7 @@ function SectionOne() {
         <ul style={{ margin: "0px" }}> {dots} </ul>
       </div>
     ),
-    customPaging: (i: number) => (<button className='size-16 outline'></button>)
+    customPaging: () => (<button className='size-16 outline'></button>)
   };
 
   return (
@@ -77,13 +76,10 @@ function SectionOne() {
       {/* Carousel Section */}
       <div className="w-full bg-[#F8F1E6] rounded-[2.5rem] h-full overflow-hidden min-h-[80dvh] max-w-screen-sm ">
         <Slider {...settings}>
-          {carouselPosts.map((post) => (
+          {carouselPosts.map((post,index) => (
             // Wrap the slide content with Link
-            <Link key={post.index} href={`/post/${post.index}`} className="block h-full outline-none focus:outline-none">
-              <div className="px-1 md:px-2 h-full relative max-w-screen-md cursor-pointer">
-                <PostLarge {...post} />
-              </div>
-            </Link>
+                <PostLarge key={index} {...post} />
+
           ))}
         </Slider>
       </div>
@@ -92,8 +88,8 @@ function SectionOne() {
       <div className="flex px-4 flex-col w-full md:w-2/5 gap-8 justify-end h-full ">
         {/* Tags */}
         <div className="flex flex-wrap gap-2">
-          {uniqueTags.map((tag) => (
-            <span key={tag} className="text-xs px-2.5 py-1 bg-black/5 hover:bg-black/10 text-gray-700 rounded-full cursor-pointer transition-colors">
+          {uniqueTags.map((tag,index) => (
+            <span key={index} className="text-xs px-2.5 py-1 bg-black/5 hover:bg-black/10 text-gray-700 rounded-full cursor-pointer transition-colors">
               {tag}
             </span>
           ))}
@@ -101,11 +97,8 @@ function SectionOne() {
         {/* Featured Posts */}
         <div className="flex gap-3 flex-col">
           <span className="flex items-center justify-center px-4 text-white bg-red-400 w-fit rounded-full">featured</span>
-          {posts.slice(4, 7).map((post) => (
-            // Wrap PostSmall with Link
-            <Link key={post.index} href={`/post/${post.index}`} className="block outline-none focus:outline-none">
-              <PostSmall {...post} />
-            </Link>
+          {posts.slice(4, 7).map((post,index) => (
+              <PostSmall key={index} {...post} />
           ))}
         </div>
       </div>

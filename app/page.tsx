@@ -5,9 +5,7 @@ import { collections, posts, guilds } from "./data/posts"; // Import data
 import CollectionCard from "./components/collectionCard";
 import GuildCard from "./components/guildCard"; // <--- Import the new component
 import { BsCollectionFill } from "react-icons/bs";
-import { PiFlyingSaucerFill } from "react-icons/pi";
-import Link from 'next/link';
-import { FaUsers } from 'react-icons/fa';
+
 
 export default function Home() {
   return (
@@ -23,9 +21,10 @@ export default function Home() {
               <BsCollectionFill /> Featured Collections
             </h5>
             <div className="grid gap-6 ">
-              {collections.map((collection) => (
+              {collections.map((collection,index) => (
                 <CollectionCard
-                  key={collection.id}
+                    key={index}
+                  index={index}
                   collection={collection}
                   allPosts={posts}
                 />
@@ -33,7 +32,7 @@ export default function Home() {
             </div>
           </section>
 
-          
+
 
           <div className="bg-[#1FA886] w-[80%] h-[200px] relative mx-auto ">
           </div>
@@ -47,10 +46,11 @@ export default function Home() {
             </h3>
             {/* Use a grid for the cards */}
             <div className="grid grid-cols-3 gap-6 ">
-              {guilds.map((guild) => (
+              {guilds.map((guild,index) => (
                 // Use the GuildCard component here
                 <GuildCard
-                  key={guild.id}
+                    index={index}
+                  key={index}
                   guild={guild}
                   allPosts={posts} // Pass all posts to the card
                 />

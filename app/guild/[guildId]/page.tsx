@@ -1,45 +1,29 @@
-// app/guild/[guildId]/page.tsx
-import React from 'react';
-import { posts, collections, guilds, Post, Collection, Guild } from '@/app/data/posts'; // Adjust path if needed
-import Link from 'next/link';
-import Image from 'next/image';
-import { notFound } from 'next/navigation';
-import { FaUsers, FaBookOpen, FaLayerGroup, FaChevronRight, FaTag } from 'react-icons/fa'; // Icons
-import { PostSmall } from '@/app/components/Post/post'; // Reuse PostSmall
-import CollectionCard from '@/app/components/collectionCard'; // Reuse CollectionCard
+"use client";
+import React from 'react'
+import {notFound, useParams} from "next/navigation";
+import {collections, guilds, posts} from "@/app/data/posts";
+import Link from "next/link";
+import {FaBookOpen, FaChevronRight, FaLayerGroup, FaTag, FaUsers} from "react-icons/fa";
+import Image from "next/image";
+import {PostSmall} from "@/app/components/Post/post";
+import CollectionCard from "@/app/components/collectionCard";
 
-// Generate Metadata for SEO
-export async function generateMetadata({ params }: { params: { guildId: string } }) {
+export default function Page() {
+    const params = useParams<{ guildId:string }>();
+
     const guild = guilds.find(g => g.id === params.guildId);
+    console.log(params);
+    console.log(guild);
 
-    if (!guild) {
-        return { title: 'Guild Not Found' };
-    }
-
-    return {
-        title: `Guild: ${guild.name}`,
-        description: guild.description?.substring(0, 150) || `Explore content from the ${guild.name} guild, focusing on ${guild.theme}.`,
-    };
-}
-
-// The Guild Page Component (Server Component)
-export default function GuildPage({ params }: { params: { guildId: string } }) {
-    const { guildId } = params;
-
-    // 1. Find the specific guild
-    const guild = guilds.find(g => g.id === guildId);
 
     // If guild doesn't exist, show 404
     if (!guild) {
         notFound();
     }
-
-    // 2. Find all posts written by authors in this guild
     const guildPosts = posts.filter(post =>
         guild.authorNames.includes(post.author)
     );
 
-    // 3. Find all collections that contain at least one post from a guild member
     const guildCollections = collections.filter(collection =>
         collection.postIndices.some(postIndex => {
             const post = posts.find(p => p.index === postIndex);
@@ -52,7 +36,6 @@ export default function GuildPage({ params }: { params: { guildId: string } }) {
     const memberCount = guild.authorNames.length;
     const postCount = guildPosts.length;
     const collectionCount = guildCollections.length;
-
     return (
         <div className="max-w-screen-xl mx-auto px-4 py-16 pt-24 min-h-screen">
 
@@ -165,8 +148,9 @@ export default function GuildPage({ params }: { params: { guildId: string } }) {
                         <h2 className="text-2xl font-semibold mb-6">Collections Featuring Guild Content</h2>
                         {guildCollections.length > 0 ? (
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                {guildCollections.map((collection) => (
+                                {guildCollections.map((collection,index) => (
                                     <CollectionCard
+                                        index={index}
                                         key={collection.id}
                                         collection={collection}
                                         allPosts={posts} // Pass all posts for CollectionCard to function
@@ -181,5 +165,5 @@ export default function GuildPage({ params }: { params: { guildId: string } }) {
             </div>
             {/* --- End Guild Content Sections --- */}
         </div>
-    );
+    )
 }

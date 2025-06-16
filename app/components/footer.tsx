@@ -11,10 +11,10 @@ function Footer() {
                 <p>from <span className="text-green-600">Bromuno</span></p>
             </div>
             <div className='grid-cols-3 grid-rows-2 flex-1 grid  '>
-            {footerLink.map((item) => (
-              
-                        <a  href={item.href} className=' max-w-[12rem] '> {item.title} </a>
-                                
+            {footerLink.map((item,index) => (
+
+                        <a key={index}  href={item.href} className=' max-w-[12rem] '> {item.title} </a>
+
             ))}
             </div>
         </div>

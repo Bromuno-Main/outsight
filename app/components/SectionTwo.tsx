@@ -1,8 +1,5 @@
-// c:\Users\DELL\Documents\GitHub\insight\app\components\SectionTwo.tsx
 'use client';
-
 import React, { useState, useMemo } from 'react';
-import Link from 'next/link'; // Import Link
 import { PostMedium } from './Post/post';
 import { posts } from '../data/posts';
 
@@ -38,9 +35,9 @@ function SectionTwo() {
             >
               Recent
             </button>
-            {uniqueTags.map((tag) => (
+            {uniqueTags.map((tag,index) => (
               <button
-                key={tag}
+                key={index}
                 onClick={() => handleTagClick(tag)}
                 className={`px-3 py-1 rounded-full text-sm cursor-pointer transition-colors ${selectedTag === tag ? 'bg-green-500 text-black' : 'bg-white/0 text-black hover:bg-gray-200'}`}
               >
@@ -52,15 +49,14 @@ function SectionTwo() {
           {/* Filtered Post List */}
           <div className="flex flex-col gap-6 max-w-screen-md ">
             {filteredPosts.length > 0 ? (
-              filteredPosts.map((post) => (
-                // Wrap PostMedium with Link
-                <Link key={post.index} href={`/post/${post.index}`} className="block outline-none focus:outline-none">
-                  <PostMedium {...post} />
-                </Link>
+              filteredPosts.map((post,index) => (
+
+                  <PostMedium key={index} {...post} />
+
               ))
             ) : (
               <p className="text-gray-600 text-center py-4">
-                No articles found matching the tag "{selectedTag}".
+                No articles found matching the tag
               </p>
             )}
           </div>

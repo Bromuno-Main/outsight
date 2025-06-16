@@ -1,27 +1,13 @@
-// app/collection/[collectionId]/page.tsx
-import React from 'react';
-import { posts, collections, Post, Collection } from '@/app/data/posts'; // Adjust path if needed
-import Link from 'next/link';
-import { notFound } from 'next/navigation';
-import { FaRegFileAlt, FaUsers, FaChevronRight } from 'react-icons/fa'; // Icons for stats
-import { PostSmall } from '@/app/components/Post/post'; // Reuse PostSmall component
+"use client"
+import React from 'react'
+import {notFound, useParams} from "next/navigation";
+import {collections, posts} from "@/app/data/posts";
+import Link from "next/link";
+import {FaChevronRight, FaRegFileAlt, FaUsers} from "react-icons/fa";
+import {PostSmall} from "@/app/components/Post/post";
 
-// Generate Metadata for SEO
-export async function generateMetadata({ params }: { params: { collectionId: string } }) {
-    const collection = collections.find(c => c.id === params.collectionId);
-
-    if (!collection) {
-        return { title: 'Collection Not Found' };
-    }
-
-    return {
-        title: `Collection: ${collection.name}`,
-        description: collection.description?.substring(0, 150) || `Explore articles in the ${collection.name} collection.`,
-    };
-}
-
-// The Page Component (Server Component)
-export default function CollectionPage({ params }: { params: { collectionId: string } }) {
+export default function Page() {
+    const params = useParams<{ collectionId:string }>();
     const { collectionId } = params;
 
     // Find the specific collection
@@ -41,7 +27,6 @@ export default function CollectionPage({ params }: { params: { collectionId: str
     const postCount = postsInCollection.length;
     const uniqueAuthors = new Set(postsInCollection.map(post => post.author));
     const authorCount = uniqueAuthors.size;
-
     return (
         <div className="max-w-screen-xl mx-auto px-4 py-16 pt-24 min-h-screen">
 
@@ -112,5 +97,5 @@ export default function CollectionPage({ params }: { params: { collectionId: str
             {/* --- End Articles List --- */}
 
         </div>
-    );
+    )
 }

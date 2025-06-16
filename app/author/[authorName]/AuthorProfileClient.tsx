@@ -42,7 +42,7 @@ export default function AuthorProfileClient({ authorProfile, authorPosts, author
           </ol>
         </nav>
         {/* --- End Breadcrumbs --- */}
-  
+
         {/* --- Profile Header --- */}
         <header className="flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-8 mb-12 border-b pb-8">
           <div className="relative w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden flex-shrink-0">
@@ -62,7 +62,7 @@ export default function AuthorProfileClient({ authorProfile, authorPosts, author
           </div>
         </header>
         {/* --- End Profile Header --- */}
-  
+
         {/* --- Tabs --- */}
         <div className="mb-8 border-b">
           <nav className="-mb-px flex space-x-6" aria-label="Tabs">
@@ -89,7 +89,7 @@ export default function AuthorProfileClient({ authorProfile, authorPosts, author
           </nav>
         </div>
         {/* --- End Tabs --- */}
-  
+
         {/* --- Tab Content --- */}
         <div>
           {activeTab === 'articles' && (
@@ -98,27 +98,27 @@ export default function AuthorProfileClient({ authorProfile, authorPosts, author
               {authorPosts.length > 0 ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {/* You'll need a PostCard component here */}
-                  {authorPosts.map((post) => (
-                    <Link href={`/post/${post.index}`} key={post.index}>
-                       <PostSmall {...post} />
-                    </Link>
-  
+                  {authorPosts.map((post,index) => (
+                       <PostSmall key={index} {...post} />
+
+
                   ))}
                 </div>
               ) : (
-                <p className="text-gray-600 text-center py-8">This author hasn't published any articles yet.</p>
+                <p className="text-gray-600 text-center py-8">This author hasn&#39;t published any articles yet.</p>
               )}
             </section>
           )}
-  
+
           {activeTab === 'collections' && (
             <section>
               <h2 className="text-2xl font-semibold mb-6 sr-only">Collections featuring {authorProfile.name}</h2> {/* Screen reader heading */}
               {authorCollections.length > 0 ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                    {/* Reuse the CollectionCard component */}
-                  {authorCollections.map((collection) => (
+                  {authorCollections.map((collection,index) => (
                     <CollectionCard
+                        index={index}
                       key={collection.id}
                       collection={collection}
                       allPosts={authorPosts} // CollectionCard needs all posts to find details
@@ -126,13 +126,13 @@ export default function AuthorProfileClient({ authorProfile, authorPosts, author
                   ))}
                 </div>
               ) : (
-                <p className="text-gray-600 text-center py-8">This author's articles are not part of any collections yet.</p>
+                <p className="text-gray-600 text-center py-8">This author&#39;s articles are not part of any collections yet.</p>
               )}
             </section>
           )}
         </div>
         {/* --- End Tab Content --- */}
-  
+
       </div>
     );
 }
