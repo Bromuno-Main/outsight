@@ -3,6 +3,9 @@ import "./globals.css"; // <--- ADD THIS LINE
 import { Rajdhani, Manrope } from "next/font/google";
 import Header from "@/app/components/header";
 import Footer from "@/app/components/footer";
+import {QueryClient} from "@tanstack/query-core";
+import {QueryClientProvider} from "@tanstack/react-query";
+import ReactQueryProvider from "@/components/providers/react-query-provider";
 
 const rajdhani = Rajdhani({
   weight: ['300', '400', '500', '600', '700'],
@@ -34,7 +37,10 @@ export default function RootLayout({
         className={`${rajdhani.variable} ${manrope.variable} font-manrope pb-8 `}
       >
          <Header/>
+         <ReactQueryProvider >
+
         {children}
+         </ReactQueryProvider>
         <Footer/>
         <p className="relative text-gray-600  w-screen text-center ">copyrights © Bromuno Outsight  2025</p>
       </body>
